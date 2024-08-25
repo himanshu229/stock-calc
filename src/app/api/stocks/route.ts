@@ -53,25 +53,7 @@ export async function GET() {
   }
 }
 
-export async function POST(request: {
-  json: () =>
-    | PromiseLike<{
-        stockName: string;
-        date: any;
-        quantity: any;
-        valueBuySell: any;
-        action: string;
-        totalAmount: any;
-      }>
-    | {
-        stockName: string;
-        date: any;
-        quantity: any;
-        valueBuySell: any;
-        action: string;
-        totalAmount: any;
-      };
-}) {
+export async function POST(request: any) {
   try {
     await connectToDatabase();
 
