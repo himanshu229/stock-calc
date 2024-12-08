@@ -10,6 +10,7 @@ const StockDetails = () => {
   const [stockData, setStockData] = useState<any[]>([]);
   const [buyStockData, setBuyStockData] = useState<any[]>([]);
   const [isStockAdd, setIsStockAdd] = useState<boolean>(false);
+  const [stockType, setStockType] = useState<string>("");
   const router = useRouter();
 
   const fetchData = async () => {
@@ -31,6 +32,25 @@ const StockDetails = () => {
     fetchData();
   }, []);
 
+  const handdleBuy = () => {
+    setIsStockAdd(!isStockAdd)
+    if(!isStockAdd){
+      setStockType("")
+    }else{
+      setStockType("buy")
+    }
+  };
+
+  const handdleSell = () => {
+    setIsStockAdd(!isStockAdd)
+
+    if(!isStockAdd){
+      setStockType("")
+    }else{
+      setStockType("sell")
+    }
+  };
+
   return (
     <>
       <nav className="h-14 bg-black">
@@ -47,14 +67,21 @@ const StockDetails = () => {
         </button>
 
         <button
-          className="ml-4 p-2 bg-blue-500 rounded-md text-white m-4 cursor-pointer"
-          onClick={() => setIsStockAdd(!isStockAdd)}
+          className="ml-4 p-2 bg-green-600 rounded-md text-white m-4 cursor-pointer"
+          onClick={handdleBuy}
         >
-          {isStockAdd ? "Back" : "Add stocks"}
+          {isStockAdd ? "Back" : "buy"}
+        </button>
+
+        <button
+          className="ml-4 p-2 bg-red-600 rounded-md text-white m-4 cursor-pointer"
+          onClick={handdleSell}
+        >
+          {isStockAdd ? "Back" : "sell"}
         </button>
       </div>
       {isStockAdd ? (
-        <AddStocksDetails stockName = {stockName.replace("-", " ").toUpperCase()}/>
+        <AddStocksDetails stockName = {stockName.replace("-", " ").toUpperCase()} actionType = {stockType}/>
       ) : (
         <>
           <div className="m-4">

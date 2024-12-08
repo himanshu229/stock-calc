@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 
-export default function AddStocksDetails(props: {stockName ?: Partial<string>}) {
+export default function AddStocksDetails(props: {stockName ?: Partial<string>, actionType ?: string}) {
   const [fieldDetails, setFieldDetails] = useState<any>({});
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
@@ -28,7 +28,7 @@ export default function AddStocksDetails(props: {stockName ?: Partial<string>}) 
           type="text"
           name="action"
           autoCapitalize="off"
-          defaultValue={props.stockName}
+          defaultValue={props.actionType}
           value={fieldDetails.action}
           onChange={handleChange}
           className="border-2 border-blue-400 h-10 w-64 rounded-md p-1"
@@ -40,6 +40,7 @@ export default function AddStocksDetails(props: {stockName ?: Partial<string>}) 
           type="text"
           name="stockName"
           autoCapitalize="off"
+          defaultValue={props.stockName}
           value={fieldDetails.stockName}
           onChange={handleChange}
           className="border-2 border-blue-400 h-10 w-64 rounded-md p-1"
