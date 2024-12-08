@@ -1,4 +1,5 @@
 import axios from "axios";
+import moment from "moment";
 import { useState } from "react";
 
 export default function AddStocksDetails(props: {stockName ?: Partial<string>, actionType ?: string}) {
@@ -19,7 +20,8 @@ export default function AddStocksDetails(props: {stockName ?: Partial<string>, a
       [event.target.name]: event.target.value,
     });
   };
-
+   
+  console.log(props)
   return (
     <form onSubmit={handleSubmit} className="m-4 w-1/3">
       <div className="flex justify-between items-center mb-4">
@@ -75,6 +77,7 @@ export default function AddStocksDetails(props: {stockName ?: Partial<string>, a
           type="date"
           name="date"
           autoCapitalize="off"
+          defaultValue={moment().format('YYYY-MM-DD')} 
           value={fieldDetails.date}
           onChange={handleChange}
           className="border-2 border-blue-400 h-10 w-64 rounded-md p-1"

@@ -33,22 +33,21 @@ const StockDetails = () => {
   }, []);
 
   const handdleBuy = () => {
-    setIsStockAdd(!isStockAdd)
-    if(!isStockAdd){
-      setStockType("")
-    }else{
-      setStockType("buy")
+    if (isStockAdd) {
+      setStockType("");
+    } else {
+      setStockType("Buy");
     }
+    setIsStockAdd(!isStockAdd);
   };
 
   const handdleSell = () => {
-    setIsStockAdd(!isStockAdd)
-
-    if(!isStockAdd){
-      setStockType("")
-    }else{
-      setStockType("sell")
+    if (isStockAdd) {
+      setStockType("");
+    } else {
+      setStockType("Sell");
     }
+    setIsStockAdd(!isStockAdd);
   };
 
   return (
@@ -61,27 +60,35 @@ const StockDetails = () => {
       <div>
         <button
           className="p-2 bg-blue-500 rounded-md text-white m-4 cursor-pointer"
-          onClick={() => router.push("/")}
+          onClick={() => {
+            isStockAdd ? setIsStockAdd(!isStockAdd) : router.push("/");
+          }}
         >
-          {"<- Back"}
+          {"Back"}
         </button>
+        {!isStockAdd && (
+          <>
+            <button
+              className="ml-4 p-2 px-4 bg-green-600 rounded-md text-white m-4 cursor-pointer"
+              onClick={handdleBuy}
+            >
+              {"Buy"}
+            </button>
 
-        <button
-          className="ml-4 p-2 bg-green-600 rounded-md text-white m-4 cursor-pointer"
-          onClick={handdleBuy}
-        >
-          {isStockAdd ? "Back" : "buy"}
-        </button>
-
-        <button
-          className="ml-4 p-2 bg-red-600 rounded-md text-white m-4 cursor-pointer"
-          onClick={handdleSell}
-        >
-          {isStockAdd ? "Back" : "sell"}
-        </button>
+            <button
+              className="ml-4 p-2 px-4 bg-red-600 rounded-md text-white m-4 cursor-pointer"
+              onClick={handdleSell}
+            >
+              {"Sell"}
+            </button>
+          </>
+        )}
       </div>
       {isStockAdd ? (
-        <AddStocksDetails stockName = {stockName.replace("-", " ").toUpperCase()} actionType = {stockType}/>
+        <AddStocksDetails
+          stockName={stockName.replace("-", " ").toUpperCase()}
+          actionType={stockType}
+        />
       ) : (
         <>
           <div className="m-4">
