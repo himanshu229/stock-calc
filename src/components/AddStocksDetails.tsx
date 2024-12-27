@@ -1,10 +1,12 @@
 import axios from "axios";
 import moment from "moment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {toast } from 'react-toastify';
 
 export default function AddStocksDetails(props: {stockName ?: Partial<string>, actionType ?: string}) {
-  const [fieldDetails, setFieldDetails] = useState<any>({});
+  const [fieldDetails, setFieldDetails] = useState<any>({
+    date: moment().format('YYYY-MM-DD'),
+  });
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
@@ -23,6 +25,17 @@ export default function AddStocksDetails(props: {stockName ?: Partial<string>, a
       [event.target.name]: event.target.value,
     });
   };
+
+  useEffect(()=>{
+    if(!!props){
+      setFieldDetails({
+        ...fieldDetails,
+        action: props.actionType,
+        stockName: props.stockName,
+      })
+    }
+
+  },[props])
    
   return (
     <form onSubmit={handleSubmit} className="m-4 w-1/3">
@@ -79,7 +92,6 @@ export default function AddStocksDetails(props: {stockName ?: Partial<string>, a
           type="date"
           name="date"
           autoCapitalize="off"
-          defaultValue={moment().format('YYYY-MM-DD')} 
           value={fieldDetails.date}
           onChange={handleChange}
           className="border-2 border-blue-400 h-10 w-64 rounded-md p-1"
