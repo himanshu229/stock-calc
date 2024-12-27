@@ -1,6 +1,7 @@
 import axios from "axios";
 import moment from "moment";
 import { useState } from "react";
+import {toast } from 'react-toastify';
 
 export default function AddStocksDetails(props: {stockName ?: Partial<string>, actionType ?: string}) {
   const [fieldDetails, setFieldDetails] = useState<any>({});
@@ -9,8 +10,10 @@ export default function AddStocksDetails(props: {stockName ?: Partial<string>, a
     event.preventDefault();
     try {
       await axios.post("/api/stocks", fieldDetails);
+      toast.success("Stock added successfully")
     } catch (error) {
       console.error(error);
+      toast.error("something went wrong")
     }
   };
 
@@ -21,7 +24,6 @@ export default function AddStocksDetails(props: {stockName ?: Partial<string>, a
     });
   };
    
-  console.log(props)
   return (
     <form onSubmit={handleSubmit} className="m-4 w-1/3">
       <div className="flex justify-between items-center mb-4">
